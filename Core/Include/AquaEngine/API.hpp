@@ -34,7 +34,7 @@
 
 namespace AquaEngine { const char* PlatformName = PLATFORM_NAME; }
 
-#if BUILD_SHARED_LIB
+#if BUILD_SHARED_LIBS
 	#if defined(_MSC_VER)
 		#define AQUA_ENGINE_EXPORT __declspec(dllexport)
 		#define AQUA_ENGINE_IMPORT __declspec(dllimport)
@@ -46,15 +46,15 @@ namespace AquaEngine { const char* PlatformName = PLATFORM_NAME; }
 		#define AQUA_ENGINE_IMPORT
 	#endif
 
-	#if defined(FISHNET_EXPORT_DLL)
-		#define AquAPI AQUA_ENGINE_EXPORT
+	#if defined(AQUA_ENGINE_EXPORT_DLL)
+		#define AquaAPI AQUA_ENGINE_EXPORT
 	#else
-		#define AquAPI AQUA_ENGINE_IMPORT
+		#define AquaAPI AQUA_ENGINE_IMPORT
 	#endif
 #else
 	#define AQUA_ENGINE_EXPORT
 	#define AQUA_ENGINE_IMPORT
-	#define AquAPI
+	#define AquaAPI
 #endif
 
 #ifndef AQUA_ENGINE_VERSION_MAJOR
@@ -68,9 +68,6 @@ namespace AquaEngine { const char* PlatformName = PLATFORM_NAME; }
 #endif
 #ifndef AQUA_ENGINE_VERSION_REV
 #define AQUA_ENGINE_VERSION_REV 0
-#endif
-#ifndef AQUA_ENGINE_VERSION_DIFF
-#define AQUA_ENGINE_VERSION_DIFF 0
 #endif
 #ifndef AQUA_ENGINE_VERSION_BRANCH
 #define AQUA_ENGINE_VERSION_BRANCH ""

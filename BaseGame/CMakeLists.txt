@@ -15,6 +15,4 @@ target_include_directories(BaseGame PUBLIC
 	../Core/Include
 )
 
-target_link_libraries(BaseGame PUBLIC
-	AquaEngineCore
-)
+target_link_libraries(BaseGame PRIVATE AquaEngineCore)
