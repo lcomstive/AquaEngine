@@ -1,1 +1,4 @@
 [Bb]uild/
+
+# Mac OS Meta
+.DS_Store
