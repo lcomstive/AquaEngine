@@ -1,4 +1,4 @@
-#include <filesystem>
+#include <stdlib.h> 
 #include <spdlog/spdlog.h>
 #include <AquaEngine/API.hpp>
 
@@ -18,13 +18,24 @@ void InitLogger()
 	consoleSink->set_level(spdlog::level::info);
 #endif
 
-	auto fileSink = make_shared<spdlog::sinks::basic_file_sink_mt>("Logs/Engine.txt");
+	std::string logDirectory = "Logs/";
+
+#if defined(AQUA_ENGINE_PLATFORM_WINDOWS)
+	char* appdata = getenv("appdata");
+	logDirectory = string(appData) + logDirectory;
+#elif defined(AQUA_ENGINE_PLATFORM_MAC)
+	logDirectory = string(getenv("HOME")) + "/Library/Caches/Aqua Engine/" + logDirectory;
+#endif
+
+	auto fileSink = make_shared<spdlog::sinks::basic_file_sink_mt>(logDirectory + "/Engine.txt");
 	fileSink->set_pattern("[%H:%M:%S %z][%t][%=8n][%7l] %v");
 	fileSink->set_level(spdlog::level::trace);
 
 	auto logger = make_shared<spdlog::logger>(spdlog::logger("Engine", { consoleSink, fileSink }));
 	logger->set_level(spdlog::level::trace);
 	spdlog::set_default_logger(logger);
+
+	spdlog::info("{:>12}: {}", "Log Folder", logDirectory);
 }
 
 int main()
@@ -42,14 +53,10 @@ int main()
 				);
     spdlog::info("{:>12}: {}", "Platform", AquaEngine::PlatformName);
     spdlog::info("{:>12}: v{}.{}.{}", "SPDLog", SPDLOG_VER_MAJOR, SPDLOG_VER_MINOR, SPDLOG_VER_PATCH);
-	spdlog::info("{:>12}: {}", "Launch Dir", std::filesystem::current_path().c_str());
 	spdlog::error("Test error");
 	spdlog::trace("Test tracing");
 	spdlog::warn("Test warning");
 	spdlog::debug("Test debug");
-
-	spdlog::info("\n\nPress ENTER to exit...");
-	getchar();
 
     spdlog::shutdown();
 	return 0;
