@@ -8,3 +8,6 @@
 
 # Visual Studio
 .vs/
+
+# Generated Documentation
+Docs/html/

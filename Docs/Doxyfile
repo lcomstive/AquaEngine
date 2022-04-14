@@ -1,0 +1,22 @@
+DOXYFILE_ENCODING		= UTF-8
+PROJECT_NAME			= "Aqua Engine"
+PROJECT_LOGO			= "CMake/AquaIcon.png"
+OUTPUT_DIRECTORY		= Docs/
+CREATE_SUBDIRS			= NO
+ALLOW_UNICODE_NAMES		= NO
+OUTPUT_LANGUAGE			= English
+BRIEF_MEMBER_DESC		= YES
+REPEAT_BRIEF			= NO
+INPUT					= Core/Include Editor/Include Docs/Markdown
+RECURSIVE				= YES
+GENERATE_LATEX			= NO
+
+# Theming
+GENERATE_TREEVIEW		= YES
+HTML_HEADER				= Docs/header.html
+HTML_EXTRA_FILES		= Docs/doxygen-awesome-css/doxygen-awesome-darkmode-toggle.js \
+						  Docs/doxygen-awesome-css/doxygen-awesome-fragment-copy-button.js
+HTML_EXTRA_STYLESHEET	= Docs/doxygen-awesome-css/doxygen-awesome.css \
+						  Docs/doxygen-awesome-css/doxygen-awesome-sidebar-only.css \
+						  Docs/doxygen-awesome-css/doxygen-awesome-sidebar-only-darkmode-toggle.css \
+						  Docs/custom.css
