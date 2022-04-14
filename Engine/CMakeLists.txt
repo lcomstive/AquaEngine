@@ -1,5 +1,6 @@
 # Flecs
 add_subdirectory(Vendor/flecs)
+add_subdirectory(Vendor/bgfx.cmake)
 
 # Assign folders in solution explorer
 if(FLECS_SHARED_LIBS)
@@ -29,9 +30,11 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 	Vendor/flecs/include
 	Vendor/spdlog/include
 	Vendor/cereal/include
+	Vendor/bgfx.cmake/bgfx/include
 )
 
 target_link_libraries(${PROJECT_NAME} PUBLIC
+	bgfx
 	flecs_static
 )
 

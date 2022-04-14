@@ -11,14 +11,13 @@ set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/CMake ${CMAKE_MODULE_PATH})
 # Get the engine version from Version.txt & git revision
 include(VersionInfo)
 
-# Load Engine
+### ENGINE
 project(AquaEngine)
+add_subdirectory(Engine)
 
-# Engine Core
-add_subdirectory(Core)
-
+### APPS
 # Base Game
-add_subdirectory(BaseGame)
+add_subdirectory(Apps/BaseGame)
 
 # Editor
-add_subdirectory(Editor)
+add_subdirectory(Apps/Editor)

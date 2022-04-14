@@ -1,12 +1,15 @@
 [submodule "Core/Vendor/flecs"]
-	path = Core/Vendor/flecs
+	path = Engine/Vendor/flecs
 	url = https://github.com/SanderMertens/flecs.git
 [submodule "Core/Vendor/spdlog"]
-	path = Core/Vendor/spdlog
+	path = Engine/Vendor/spdlog
 	url = https://github.com/gabime/spdlog.git
 [submodule "Core/Vendor/cereal"]
-	path = Core/Vendor/cereal
+	path = Engine/Vendor/cereal
 	url = https://github.com/USCiLab/cereal.git
 [submodule "Docs/doxygen-awesome-css"]
 	path = Docs/doxygen-awesome-css
 	url = https://github.com/jothepro/doxygen-awesome-css.git
+[submodule "Engine/Vendor/bgfx.cmake"]
+	path = Engine/Vendor/bgfx.cmake
+	url = https://github.com/bkaradzic/bgfx.cmake
