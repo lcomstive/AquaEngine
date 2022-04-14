@@ -1,4 +1,6 @@
 #include <stdlib.h> 
+#include <iostream>
+#include <filesystem>
 #include <spdlog/spdlog.h>
 #include <AquaEngine/API.hpp>
 
@@ -8,6 +10,7 @@
 
 using namespace std;
 
+string LogDirectory = "Aqua Engine/Logs/";
 void InitLogger()
 {
 	auto consoleSink = make_shared<spdlog::sinks::stdout_color_sink_mt>();
@@ -18,16 +21,16 @@ void InitLogger()
 	consoleSink->set_level(spdlog::level::info);
 #endif
 
-	std::string logDirectory = "Logs/";
-
 #if defined(AQUA_ENGINE_PLATFORM_WINDOWS)
 	char* appdata = getenv("appdata");
-	logDirectory = string(appData) + logDirectory;
+	LogDirectory = string(appdata) + "/" + LogDirectory;
 #elif defined(AQUA_ENGINE_PLATFORM_MAC)
-	logDirectory = string(getenv("HOME")) + "/Library/Caches/Aqua Engine/" + logDirectory;
+	LogDirectory = string(getenv("HOME")) + "/Library/Caches/" + LogDirectory;
+#elif defined(AQUA_ENGINE_PLATFORM_LINUX)
+	LogDirectory = "/var/log/" + logDirectory;
 #endif
 
-	auto fileSink = make_shared<spdlog::sinks::basic_file_sink_mt>(logDirectory + "/Engine.txt");
+	auto fileSink = make_shared<spdlog::sinks::basic_file_sink_mt>(LogDirectory + "/Engine.txt");
 	fileSink->set_pattern("[%H:%M:%S %z][%t][%=8n][%7l] %v");
 	fileSink->set_level(spdlog::level::trace);
 
@@ -35,7 +38,6 @@ void InitLogger()
 	logger->set_level(spdlog::level::trace);
 	spdlog::set_default_logger(logger);
 
-	spdlog::info("{:>12}: {}", "Log Folder", logDirectory);
 }
 
 int main()
@@ -52,12 +54,17 @@ int main()
 					AQUA_ENGINE_VERSION_BRANCH
 				);
     spdlog::info("{:>12}: {}", "Platform", AquaEngine::PlatformName);
-    spdlog::info("{:>12}: v{}.{}.{}", "SPDLog", SPDLOG_VER_MAJOR, SPDLOG_VER_MINOR, SPDLOG_VER_PATCH);
+	spdlog::info("{:>12}: v{}.{}.{}", "SPDLog", SPDLOG_VER_MAJOR, SPDLOG_VER_MINOR, SPDLOG_VER_PATCH);
+	spdlog::info("");
+	spdlog::info("{:>12}: {}", "Log Folder", LogDirectory);
+	spdlog::info("{:>12}: {}", "Launch Dir", std::filesystem::current_path().string());
 	spdlog::error("Test error");
 	spdlog::trace("Test tracing");
 	spdlog::warn("Test warning");
 	spdlog::debug("Test debug");
 
+	cout << endl << endl << "Press ENTER to exit..." << endl;
+	getchar();
     spdlog::shutdown();
 	return 0;
 }

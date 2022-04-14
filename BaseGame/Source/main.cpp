@@ -42,7 +42,7 @@ int main()
 				);
     spdlog::info("{:>12}: {}", "Platform", AquaEngine::PlatformName);
     spdlog::info("{:>12}: v{}.{}.{}", "SPDLog", SPDLOG_VER_MAJOR, SPDLOG_VER_MINOR, SPDLOG_VER_PATCH);
-	spdlog::info("{:>12}: {}", "Launch Dir", std::filesystem::current_path().c_str());
+	spdlog::info("{:>12}: {}", "Launch Dir", std::filesystem::current_path().string());
 	spdlog::error("Test error");
 	spdlog::trace("Test tracing");
 	spdlog::warn("Test warning");
