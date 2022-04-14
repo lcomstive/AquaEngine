@@ -63,6 +63,10 @@ int main()
 	spdlog::warn("Test warning");
 	spdlog::debug("Test debug");
 
+#if defined(AQUA_ENGINE_PLATFORM_MAC) || defined(AQUA_ENGINE_PLATFORM_LINUX)
+	spdlog::info("DYLD_LIBRARY_PATH = {}", getenv("DYLD_LIBRARY_PATH"));
+#endif
+
 	cout << endl << endl << "Press ENTER to exit..." << endl;
 	getchar();
     spdlog::shutdown();
