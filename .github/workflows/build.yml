@@ -81,4 +81,4 @@ jobs:
         name: ${{ matrix.config.artifact }} ${{ steps.readFile.outputs.content }}
         path: |
           ${{ github.workspace }}/package
-          !${{ github.workspace }}/_CPack_Packages
+          !${{ github.workspace }}/package/_CPack_Packages
