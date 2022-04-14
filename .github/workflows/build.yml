@@ -79,4 +79,6 @@ jobs:
     - uses: actions/upload-artifact@v3
       with:
         name: ${{ matrix.config.artifact }} ${{ steps.readFile.outputs.content }}
-        path: ${{ github.workspace }}/package
+        path: |
+          ${{ github.workspace }}/package
+          !${{ github.workspace }}/_CPack_Packages

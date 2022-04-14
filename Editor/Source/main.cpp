@@ -27,10 +27,10 @@ void InitLogger()
 #elif defined(AQUA_ENGINE_PLATFORM_MAC)
 	LogDirectory = string(getenv("HOME")) + "/Library/Caches/" + LogDirectory;
 #elif defined(AQUA_ENGINE_PLATFORM_LINUX)
-	LogDirectory = "/var/log/" + LogDirectory;
+	LogDirectory = "./Logs/";
 #endif
 
-	auto fileSink = make_shared<spdlog::sinks::basic_file_sink_mt>(LogDirectory + "/Engine.txt");
+	auto fileSink = make_shared<spdlog::sinks::basic_file_sink_mt>(LogDirectory + "Engine.txt");
 	fileSink->set_pattern("[%H:%M:%S %z][%t][%=8n][%7l] %v");
 	fileSink->set_level(spdlog::level::trace);
 
