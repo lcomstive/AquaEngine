@@ -55,19 +55,19 @@ jobs:
     - name: Build [Debug]
       if: github.ref != 'refs/heads/main' && github.ref != 'refs/heads/staging'
       run: |
-        cmake --build  ${{ github.workspace }}/build --config Debug; \
+        cmake --build  ${{ github.workspace }}/build --config Debug
         cpack --config ${{ github.workspace }}/build/CPackConfig.cmake -B ${{ github.workspace }}/package -C Debug
 
     - name: Build [Release w/ Debug Info]
       if: github.ref == 'refs/heads/staging'
       run: |
-        cmake --build  ${{ github.workspace }}/build --config RelWithDebInfo; \
+        cmake --build  ${{ github.workspace }}/build --config RelWithDebInfo
         cpack --config ${{ github.workspace }}/build/CPackConfig.cmake -B ${{ github.workspace }}/package -C RelWithDebInfo
 
     - name: Build [Release]
       if: github.ref == 'refs/heads/main'
       run: |
-        cmake --build  ${{ github.workspace }}/build --config Release; \
+        cmake --build  ${{ github.workspace }}/build --config Release
         cpack --config ${{ github.workspace }}/build/CPackConfig.cmake -B ${{ github.workspace }}/package -C Release
 
     - uses: juliangruber/read-file-action@v1

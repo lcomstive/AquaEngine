@@ -27,7 +27,7 @@ void InitLogger()
 #elif defined(AQUA_ENGINE_PLATFORM_MAC)
 	LogDirectory = string(getenv("HOME")) + "/Library/Caches/" + LogDirectory;
 #elif defined(AQUA_ENGINE_PLATFORM_LINUX)
-	LogDirectory = "/var/log/" + logDirectory;
+	LogDirectory = "/var/log/" + LogDirectory;
 #endif
 
 	auto fileSink = make_shared<spdlog::sinks::basic_file_sink_mt>(LogDirectory + "/Engine.txt");
