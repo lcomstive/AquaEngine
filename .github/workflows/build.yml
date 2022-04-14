@@ -64,7 +64,7 @@ jobs:
       if: github.ref == 'refs/heads/main'
       run: cmake --build ${{ github.workspace }}/build --config Release
 
-    - nme: Package Project
+    - name: Package Project
       run: cpack --config ${{ github.workspace }}/build/CPackConfig.cmake -B ${{ github.workspace }}/package
 
     - uses: juliangruber/read-file-action@v1
