@@ -29,20 +29,13 @@ var NAVTREE =
       [ "Download the editor", "md_Docs_Markdown_Installation.html#autotoc_md1", null ],
       [ "Building from source", "md_Docs_Markdown_Installation.html#autotoc_md2", null ],
       [ "Test", "md_Docs_Markdown_Installation.html#autotoc_md3", null ]
-    ] ],
-    [ "Classes", "annotated.html", [
-      [ "Class List", "annotated.html", "annotated_dup" ],
-      [ "Class Index", "classes.html", null ]
-    ] ],
-    [ "Files", "files.html", [
-      [ "File List", "files.html", "files_dup" ]
     ] ]
   ] ]
 ];
 
 var NAVTREEINDEX =
 [
-"API_8hpp_source.html"
+"index.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
