@@ -80,5 +80,4 @@ jobs:
       with:
         name: ${{ matrix.config.artifact }} ${{ steps.readFile.outputs.content }}
         path: |
-          ${{ github.workspace }}/package
-          !${{ github.workspace }}/package/_CPack_Packages
+          ${{ github.workspace }}/package/Aqua\ Engine\ v*
