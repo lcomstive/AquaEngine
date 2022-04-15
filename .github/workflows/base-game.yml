@@ -41,7 +41,7 @@ jobs:
             name: "iOS",
             os: macos-latest,
             artifact: "BaseGame iOS",
-            cmake: "-GXcode -DCMAKE_SYSTEM_NAME=iOS -DCODE_SIGN_IDENTITY=\"iPhone Distribution\" -DDEVELOPMENT_TEAM=\"${{ secrets.IOS_TEAM_ID }}\" -DPRODUCT_BUNDLE_IDENTIFIER=\"com.madissia.BaseGame\""
+            cmake: "-GXcode -DCMAKE_SYSTEM_NAME=iOS -DCODE_SIGN_IDENTITY=\"iPhone Distribution\" -DPRODUCT_BUNDLE_IDENTIFIER=\"com.madissia.BaseGame\""
           }
 
     steps:
@@ -80,15 +80,15 @@ jobs:
     # Build project
     - name: Build [Debug]
       if: github.ref != 'refs/heads/main' && github.ref != 'refs/heads/staging'
-      run: cmake --build  ${{ github.workspace }}/build -t BaseGame --config Debug
+      run: cmake --build  ${{ github.workspace }}/build -t BaseGame --config Debug -DDEVELOPMENT_TEAM=\"${{ secrets.IOS_TEAM_ID }}\"
 
     - name: Build [Release w/ Debug Info]
       if: github.ref == 'refs/heads/staging'
-      run: cmake --build  ${{ github.workspace }}/build -t BaseGame --config RelWithDebInfo
+      run: cmake --build  ${{ github.workspace }}/build -t BaseGame --config RelWithDebInfo -DDEVELOPMENT_TEAM=\"${{ secrets.IOS_TEAM_ID }}\"
 
     - name: Build [Release]
       if: github.ref == 'refs/heads/main'
-      run: cmake --build  ${{ github.workspace }}/build -t BaseGame --config Release
+      run: cmake --build  ${{ github.workspace }}/build -t BaseGame --config Release -DDEVELOPMENT_TEAM=\"${{ secrets.IOS_TEAM_ID }}\"
 
     - uses: juliangruber/read-file-action@v1
       id: readFile
