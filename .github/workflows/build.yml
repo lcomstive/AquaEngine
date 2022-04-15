@@ -39,7 +39,8 @@ jobs:
         submodules: recursive
 
     # Install pre-requisites
-    - run: apt-get install libgl1-mesa-dev # OpenGL
+    - run: sudo apt-get install libgl1-mesa-dev # OpenGL
+      if: matrix.config.os == 'ubuntu-latest'
 
     # Configure CMake
     - name: Configure CMake [Debug]
