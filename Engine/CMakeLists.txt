@@ -1,10 +1,10 @@
 # Flecs
+set(FLECS_SHARED_LIBS OFF CACHE BOOL "")
 add_subdirectory(Vendor/flecs)
 
 # BGFX
 set(BGFX_BUILD_EXAMPLES OFF CACHE BOOL "")
 add_subdirectory(Vendor/bgfx.cmake)
-
 
 # Assign folders in solution explorer
 if(FLECS_SHARED_LIBS)

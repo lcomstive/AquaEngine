@@ -67,28 +67,28 @@ jobs:
     # Configure CMake
     - name: Configure CMake [Debug]
       if: github.ref != 'refs/heads/main' && github.ref != 'refs/heads/staging'
-      run: cmake -B ${{ github.workspace }}/build -DCMAKE_BUILD_TYPE=Debug ${{ matrix.config.cmake }}
+      run: cmake -B ${{ github.workspace }}/build -DCMAKE_BUILD_TYPE=Debug ${{ matrix.config.cmake }} -DDEVELOPMENT_TEAM=\"${{ secrets.IOS_TEAM_ID }}\"
 
     - name: Configure CMake [Release w/ Debug Info]
       if: github.ref == 'refs/heads/staging'
-      run: cmake -B ${{ github.workspace }}/build -DCMAKE_BUILD_TYPE=RelWithDebInfo ${{ matrix.config.cmake }}
+      run: cmake -B ${{ github.workspace }}/build -DCMAKE_BUILD_TYPE=RelWithDebInfo ${{ matrix.config.cmake }} -DDEVELOPMENT_TEAM=\"${{ secrets.IOS_TEAM_ID }}\"
 
     - name: Configure CMake [Release]
       if: github.ref == 'refs/heads/main'
-      run: cmake -B ${{ github.workspace }}/build -DCMAKE_BUILD_TYPE=Release ${{ matrix.config.cmake }}
+      run: cmake -B ${{ github.workspace }}/build -DCMAKE_BUILD_TYPE=Release ${{ matrix.config.cmake }} -DDEVELOPMENT_TEAM=\"${{ secrets.IOS_TEAM_ID }}\"
     
     # Build project
     - name: Build [Debug]
       if: github.ref != 'refs/heads/main' && github.ref != 'refs/heads/staging'
-      run: cmake --build  ${{ github.workspace }}/build -t BaseGame --config Debug -DDEVELOPMENT_TEAM=\"${{ secrets.IOS_TEAM_ID }}\"
+      run: cmake --build  ${{ github.workspace }}/build -t BaseGame --config Debug
 
     - name: Build [Release w/ Debug Info]
       if: github.ref == 'refs/heads/staging'
-      run: cmake --build  ${{ github.workspace }}/build -t BaseGame --config RelWithDebInfo -DDEVELOPMENT_TEAM=\"${{ secrets.IOS_TEAM_ID }}\"
+      run: cmake --build  ${{ github.workspace }}/build -t BaseGame --config RelWithDebInfo
 
     - name: Build [Release]
       if: github.ref == 'refs/heads/main'
-      run: cmake --build  ${{ github.workspace }}/build -t BaseGame --config Release -DDEVELOPMENT_TEAM=\"${{ secrets.IOS_TEAM_ID }}\"
+      run: cmake --build  ${{ github.workspace }}/build -t BaseGame --config Release
 
     - uses: juliangruber/read-file-action@v1
       id: readFile
