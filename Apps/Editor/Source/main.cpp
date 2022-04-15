@@ -40,7 +40,11 @@ void InitLogger()
 
 }
 
+#ifndef NDEBUG
 int main()
+#else
+int WINAPI WinMain(HINSTANCE instance, HINSTANCE previous, LPSTR lpCmdLine, int nShowCmd)
+#endif
 {
 	InitLogger();
 

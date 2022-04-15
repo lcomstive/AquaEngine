@@ -9,7 +9,7 @@
 #include <spdlog/sinks/basic_file_sink.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
 
-#ifndef NDEBUG // Debug mode
+// #ifndef NDEBUG // Debug mode
 float BytesToGB(long long input)
 {
 	return input
@@ -17,7 +17,7 @@ float BytesToGB(long long input)
 		/ 1024.0f  // MB
 		/ 1024.0f; // GB
 }
-#endif
+// #endif
 
 using namespace std;
 
@@ -35,11 +35,13 @@ void BaseGame::init(int argc, const char* const* argv, unsigned int width, unsig
 	init.resolution.reset = m_Reset = BGFX_RESET_VSYNC;
 	bgfx::init(init);
 
-#ifndef NDEBUG // Debug mode
+// #ifndef NDEBUG // Debug mode
 	bgfx::setDebug(m_Debug = BGFX_DEBUG_TEXT);
+/*
 #else
 	bgfx::setDebug(m_Debug = BGFX_DEBUG_NONE);
 #endif
+*/
 
 	bgfx::setViewClear(
 		0, // ID
@@ -64,6 +66,9 @@ void BaseGame::init(int argc, const char* const* argv, unsigned int width, unsig
 
 	spdlog::info("{:>12}: {}", "Platform", AquaEngine::PlatformName);
 	spdlog::info("{:>12}: v{}.{}.{}", "SPDLog", SPDLOG_VER_MAJOR, SPDLOG_VER_MINOR, SPDLOG_VER_PATCH);
+#ifndef NDEBUG
+	spdlog::info("{:>12}: {}", "Build", "Debug");
+#endif
 	spdlog::info("");
 	spdlog::info("{:>12}: {}", "Log Folder", m_LogDirectory);
 	spdlog::info("{:>12}: {}", "Launch Dir", std::filesystem::current_path().string());
@@ -93,7 +98,7 @@ bool BaseGame::update()
 	bgfx::setViewRect(0, 0, 0, (unsigned short)m_Width, (unsigned short)m_Height);
 	bgfx::touch(0); // Dummy draw call to ensure view is cleared
 
-#ifndef NDEBUG // Debug mode
+// #ifndef NDEBUG // Debug mode
 	bgfx::dbgTextClear();
 
 	const int LeftTextColour = 1;
@@ -104,7 +109,7 @@ bool BaseGame::update()
 	const bgfx::Stats* stats = bgfx::getStats();
 	bgfx::dbgTextPrintf(1, 3, 0, "\x1b[%i;m Resolution \x1b[%i;m%ix%i", LeftTextColour, RightTextColour, stats->width, stats->height);
 	bgfx::dbgTextPrintf(1, 4, 0, "\x1b[%i;m VRAM Usage \x1b[%i;m%.1fGB / %.1fGB", LeftTextColour, RightTextColour, BytesToGB(stats->gpuMemoryUsed), BytesToGB(stats->gpuMemoryMax));
-#endif
+// #endif
 
 	bgfx::frame();
 	return true;

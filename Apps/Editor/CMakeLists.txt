@@ -2,19 +2,21 @@ project(AquaEditor)
 file(GLOB_RECURSE SOURCE_FILES  "Source/*.cpp")
 file(GLOB_RECURSE HEADER_FILES "Include/*.hpp")
 
-
-if(WIN32)
-	set(EXECUTABLE_RESOURCES ${CMAKE_SOURCE_DIR}/CMake/Windows/AppIcon.rc)
-else()
-	set(EXECUTABLE_RESOURCES "")
-endif()
-
 add_executable(
 	${PROJECT_NAME}
 	${SOURCE_FILES}
 	${HEADER_FILES}
 	${EXECUTABLE_RESOURCES}
 )
+
+if(WIN32)
+	set_target_properties(${PROJECT_NAME} PROPERTIES
+		LINK_FLAGS_DEBUG   			"/SUBSYSTEM:CONSOLE"
+		LINK_FLAGS_RELEASE 			"/SUBSYSTEM:WINDOWS /ENTRY:WinMainCRTStartup"
+		LINK_FLAGS_MINSIZEREL 		"/SUBSYSTEM:WINDOWS /ENTRY:WinMainCRTStartup"
+		LINK_FLAGS_RELWITHDEBINFO 	"/SUBSYSTEM:WINDOWS /ENTRY:WinMainCRTStartup"
+	)
+endif()
 
 # Group source files inside IDE
 source_group("Resources" FILES ${EXECUTABLE_RESOURCES})

@@ -1202,10 +1202,17 @@ namespace entry
 
 } // namespace entry
 
+#ifndef NDEBUG // Debug mode
 int main(int _argc, const char* const* _argv)
 {
-	using namespace entry;
-	return s_ctx.run(_argc, _argv);
+	return entry::s_ctx.run(_argc, (const char* const*)_argv);
 }
+#else
+#include <iostream>
+int WINAPI WinMain(HINSTANCE instance, HINSTANCE previous, LPSTR lpCmdLine, int nShowCmd)
+{
+	return entry::s_ctx.run(__argc, __argv);
+}
+#endif
 
 #endif // BX_PLATFORM_WINDOWS

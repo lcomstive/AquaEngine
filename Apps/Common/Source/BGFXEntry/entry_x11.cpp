@@ -777,7 +777,7 @@ int main(int _argc, const char* const* _argv)
 
 	Args args(_argc, _argv);
 
-	if(args.m_type == bgfx::RenderType::Noop)
+	if(args.m_type == bgfx::RendererType::Noop)
 		return entry::main(_argc, _argv);
 	else
 		return s_ctx.run(_argc, _argv);
