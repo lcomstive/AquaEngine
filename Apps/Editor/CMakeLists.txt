@@ -23,10 +23,10 @@ source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}/Include" PREFIX "Include" FILES $
 
 target_include_directories(${PROJECT_NAME} PUBLIC
 	Include
-	../Core/Include
+	${CMAKE_SOURCE_DIR}/Engine/Include
 )
 
-target_link_libraries(${PROJECT_NAME} PRIVATE AquaEngineCore)
+target_link_libraries(${PROJECT_NAME} PRIVATE AquaEngine)
 
 install(
 	TARGETS ${PROJECT_NAME}
@@ -45,7 +45,7 @@ set(CPACK_PACKAGE_VERSION_PATCH "${VERSION_PATCH}")
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/LICENSE")
 set(CPACK_PACKAGE_INSTALL_DIRECTORY "Aqua Engine/v${VERSION_STRING}")
 set(CPACK_STRIP_FILES
-	"bin/AquaEditor;.DS_Store;.git;Core/Vendor"
+	"bin/AquaEditor;.DS_Store;.git;Engine/Vendor"
 )
 
 if("${GIT_BRANCH}" STREQUAL "main") # Production build

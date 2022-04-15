@@ -38,6 +38,9 @@ jobs:
         fetch-depth: 0
         submodules: recursive
 
+    # Install pre-requisites
+    - run: apt-get install libgl1-mesa-dev # OpenGL
+
     # Configure CMake
     - name: Configure CMake [Debug]
       if: github.ref != 'refs/heads/main' && github.ref != 'refs/heads/staging'

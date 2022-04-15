@@ -72,3 +72,14 @@ namespace AquaEngine { const char* PlatformName = PLATFORM_NAME; }
 #ifndef AQUA_ENGINE_VERSION_BRANCH
 #define AQUA_ENGINE_VERSION_BRANCH ""
 #endif
+
+#ifndef AQUA_ENGINE_VERSION_STRING
+#include <string>
+#define AQUA_ENGINE_VERSION_STRING \
+	std::string("v" + \
+			std::to_string(AQUA_ENGINE_VERSION_MAJOR) + "." + \
+			std::to_string(AQUA_ENGINE_VERSION_MINOR) + "." + \
+			std::to_string(AQUA_ENGINE_VERSION_PATCH)		+ \
+			"-" AQUA_ENGINE_VERSION_REV						  \
+			" [" AQUA_ENGINE_VERSION_BRANCH "]" )
+#endif

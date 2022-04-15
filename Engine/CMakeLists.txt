@@ -1,6 +1,10 @@
 # Flecs
 add_subdirectory(Vendor/flecs)
+
+# BGFX
+set(BGFX_BUILD_EXAMPLES OFF CACHE BOOL "")
 add_subdirectory(Vendor/bgfx.cmake)
+
 
 # Assign folders in solution explorer
 if(FLECS_SHARED_LIBS)
@@ -11,7 +15,7 @@ if(FLECS_STATIC_LIBS)
 endif()
 
 # Aqua Engine Core
-project(AquaEngineCore)
+project(AquaEngine)
 file(GLOB_RECURSE SOURCE_FILES  "Source/*.cpp")
 file(GLOB_RECURSE HEADER_FILES "Include/*.hpp")
 
@@ -34,9 +38,19 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 )
 
 target_link_libraries(${PROJECT_NAME} PUBLIC
-	bgfx
 	flecs_static
+	
+	# BGFX
+	bx
+	bimg 
+	bgfx
+	dear-imgui
+	meshoptimizer
 )
+
+if(UNIX AND NOT APPLE)
+	target_link_libraries(${PROJECT_NAME} PUBLIC X11)
+endif()
 
 target_compile_definitions(${PROJECT_NAME} PUBLIC BUILD_SHARED_LIBS)
 target_compile_definitions(${PROJECT_NAME} PRIVATE AQUA_ENGINE_EXPORT_DLL)

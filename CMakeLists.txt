@@ -16,8 +16,4 @@ project(AquaEngine)
 add_subdirectory(Engine)
 
 ### APPS
-# Base Game
-add_subdirectory(Apps/BaseGame)
-
-# Editor
-add_subdirectory(Apps/Editor)
+add_subdirectory(Apps)
