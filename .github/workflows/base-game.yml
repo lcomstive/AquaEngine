@@ -51,12 +51,12 @@ jobs:
         submodules: recursive
 
     # Install pre-requisites
-    - run: sudo apt-get install libgl1-mesa-dev # OpenGL
-      if: matrix.config.os == 'ubuntu-latest'
+    - if: matrix.config.os == 'ubuntu-latest'
+      run: sudo apt-get install libgl1-mesa-dev # OpenGL
 
-    - uses: actions/setup-ndk@v1
+    - if: matrix.config.name == 'Android'
+      uses: nttld/setup-ndk@v1
       id: setup-ndk
-      if: matrix.config.name == 'Android'
       with:
         ndk-version: r21e
         add-to-path: true
