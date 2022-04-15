@@ -16,6 +16,10 @@ if(WIN32)
 		LINK_FLAGS_MINSIZEREL 		"/SUBSYSTEM:WINDOWS /ENTRY:WinMainCRTStartup"
 		LINK_FLAGS_RELWITHDEBINFO 	"/SUBSYSTEM:WINDOWS /ENTRY:WinMainCRTStartup"
 	)
+elseif(APPLE)
+	set_target_properties(${PROJECT_NAME} PROPERTIES
+		XCODE_ATTRIBUTE_BUNDLE_IDENTIFIER "com.madissia.AquaEditor"
+	)
 endif()
 
 # Group source files inside IDE
@@ -73,7 +77,6 @@ if(APPLE)
 elseif(WIN32)
 	# Replace '/' with '\\'; regex so have to escape characters
 	STRING(REGEX REPLACE "/" "\\\\\\\\" CPACK_PACKAGE_INSTALL_DIRECTORY ${CPACK_PACKAGE_INSTALL_DIRECTORY} )
-
 
 	set(CPACK_GENERATOR "NSIS64")
 	set(CPACK_NSIS_DISPLAY_NAME ${CPACK_PACKAGE_NAME})

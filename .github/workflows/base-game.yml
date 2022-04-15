@@ -37,12 +37,6 @@ jobs:
             artifact: "BaseGame Android",
             cmake: "-DCMAKE_SYSTEM_NAME=Android -DCMAKE_SYSTEM_VERSION=21 -DCMAKE_ANDROID_ARCH_ABI=arm64-v8a -DCMAKE_ANDROID_NDK=$ANDROID_NDK_HOME -DCMAKE_ANDROID_STL_TYPE=c++_static"
           }
-        - {
-            name: "iOS",
-            os: macos-latest,
-            artifact: "BaseGame iOS",
-            cmake: "-GXcode -DCMAKE_SYSTEM_NAME=iOS -DCODE_SIGN_IDENTITY=\"iPhone Distribution\" -DPRODUCT_BUNDLE_IDENTIFIER=\"com.madissia.BaseGame\""
-          }
 
     steps:
     - uses: actions/checkout@v3
@@ -55,9 +49,6 @@ jobs:
       run: sudo apt-get install libgl1-mesa-dev # OpenGL
 
     - if: matrix.config.name == 'Android'
-      run: sudo apt-get install libx11-dev libxss-dev libxxf86vm-dev libxkbfile-dev libxv-dev
-
-    - if: matrix.config.name == 'Android'
       uses: nttld/setup-ndk@v1
       id: setup-ndk
       with:
@@ -67,15 +58,15 @@ jobs:
     # Configure CMake
     - name: Configure CMake [Debug]
       if: github.ref != 'refs/heads/main' && github.ref != 'refs/heads/staging'
-      run: cmake -B ${{ github.workspace }}/build -DCMAKE_BUILD_TYPE=Debug ${{ matrix.config.cmake }} -DDEVELOPMENT_TEAM=\"${{ secrets.IOS_TEAM_ID }}\"
+      run: cmake -B ${{ github.workspace }}/build -DCMAKE_BUILD_TYPE=Debug ${{ matrix.config.cmake }}
 
     - name: Configure CMake [Release w/ Debug Info]
       if: github.ref == 'refs/heads/staging'
-      run: cmake -B ${{ github.workspace }}/build -DCMAKE_BUILD_TYPE=RelWithDebInfo ${{ matrix.config.cmake }} -DDEVELOPMENT_TEAM=\"${{ secrets.IOS_TEAM_ID }}\"
+      run: cmake -B ${{ github.workspace }}/build -DCMAKE_BUILD_TYPE=RelWithDebInfo ${{ matrix.config.cmake }}
 
     - name: Configure CMake [Release]
       if: github.ref == 'refs/heads/main'
-      run: cmake -B ${{ github.workspace }}/build -DCMAKE_BUILD_TYPE=Release ${{ matrix.config.cmake }} -DDEVELOPMENT_TEAM=\"${{ secrets.IOS_TEAM_ID }}\"
+      run: cmake -B ${{ github.workspace }}/build -DCMAKE_BUILD_TYPE=Release ${{ matrix.config.cmake }}
     
     # Build project
     - name: Build [Debug]

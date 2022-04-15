@@ -48,7 +48,7 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
 	meshoptimizer
 )
 
-if(UNIX AND NOT APPLE)
+if(UNIX AND NOT APPLE AND NOT ANDROID)
 	target_link_libraries(${PROJECT_NAME} PUBLIC X11)
 endif()
 
