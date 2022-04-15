@@ -30,6 +30,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 
 target_link_libraries(${PROJECT_NAME} PRIVATE AquaEngine)
 
+# Installation
 install(
 	TARGETS ${PROJECT_NAME}
 	ARCHIVE DESTINATION lib

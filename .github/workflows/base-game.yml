@@ -35,13 +35,13 @@ jobs:
             name: "Android",
             os: ubuntu-latest,
             artifact: "BaseGame Android",
-            cmake: "-DCMAKE_SYSTEM_NAME=Android -DCMAKE_SYSTEM_VERSION=21 -DCMAKE_ANDROID_ARCH_ABI=arm64-v8a -DCMAKE_ANDROID_NDK=$ANDROID_NDK_HOME -DCMAKE_ANDROID_STYLE_TYPE=gnustl_static"
+            cmake: "-DCMAKE_SYSTEM_NAME=Android -DCMAKE_SYSTEM_VERSION=21 -DCMAKE_ANDROID_ARCH_ABI=arm64-v8a -DCMAKE_ANDROID_NDK=$ANDROID_NDK_HOME -DCMAKE_ANDROID_STL_TYPE=gnustl_static"
           }
         - {
             name: "iOS",
             os: macos-latest,
             artifact: "BaseGame iOS",
-            cmake: "-GXcode -DCMAKE_SYSTEM_NAME=iOS"
+            cmake: "-GXcode -DCMAKE_SYSTEM_NAME=iOS -DCODE_SIGN_IDENTITY=\"iPhone Distribution\""
           }
 
     steps:
@@ -52,7 +52,7 @@ jobs:
 
     # Install pre-requisites
     - if: matrix.config.os == 'ubuntu-latest'
-      run: sudo apt-get install libgl1-mesa-dev # OpenGL
+      run: sudo apt-get install libgl1-mesa-dev libx11-dev # OpenGL & X11
 
     - if: matrix.config.name == 'Android'
       uses: nttld/setup-ndk@v1
@@ -77,21 +77,15 @@ jobs:
     # Build project
     - name: Build [Debug]
       if: github.ref != 'refs/heads/main' && github.ref != 'refs/heads/staging'
-      run: |
-        cmake --build  ${{ github.workspace }}/build -t BaseGame --config Debug
-        cpack --config ${{ github.workspace }}/build/CPackConfig.cmake -B ${{ github.workspace }}/package -C Debug
+      run: cmake --build  ${{ github.workspace }}/build -t BaseGame --config Debug
 
     - name: Build [Release w/ Debug Info]
       if: github.ref == 'refs/heads/staging'
-      run: |
-        cmake --build  ${{ github.workspace }}/build -t BaseGame --config RelWithDebInfo
-        cpack --config ${{ github.workspace }}/build/CPackConfig.cmake -B ${{ github.workspace }}/package -C RelWithDebInfo
+      run: cmake --build  ${{ github.workspace }}/build -t BaseGame --config RelWithDebInfo
 
     - name: Build [Release]
       if: github.ref == 'refs/heads/main'
-      run: |
-        cmake --build  ${{ github.workspace }}/build -t BaseGame --config Release
-        cpack --config ${{ github.workspace }}/build/CPackConfig.cmake -B ${{ github.workspace }}/package -C Release
+      run: cmake --build  ${{ github.workspace }}/build -t BaseGame --config Release
 
     - uses: juliangruber/read-file-action@v1
       id: readFile
@@ -102,5 +96,4 @@ jobs:
     - uses: actions/upload-artifact@v3
       with:
         name: ${{ matrix.config.artifact }} ${{ steps.readFile.outputs.content }}
-        path: |
-          ${{ github.workspace }}/package/[Aa]qua*
+        path: ${{ github.workspace }}/build/bin/*
