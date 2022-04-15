@@ -124,7 +124,7 @@ void BaseGame::InitLogger()
 	char* appdata = getenv("appdata");
 	m_LogDirectory = string(appdata) + "/Aqua Engine/" + m_LogDirectory;
 #elif defined(AQUA_ENGINE_PLATFORM_MAC)
-	m_LogDirectory = string(getenv("HOME")) + "/Library/Caches/Aqua Engine/" + LogDirectory;
+	m_LogDirectory = string(getenv("HOME")) + "/Library/Caches/Aqua Engine/" + m_LogDirectory;
 #elif defined(AQUA_ENGINE_PLATFORM_LINUX)
 	m_LogDirectory = "./Logs/";
 #endif

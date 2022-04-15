@@ -26,6 +26,8 @@
 
 #include <fcntl.h>
 
+#include "bgfx_utils.h"
+
 namespace entry
 {
 	static const char* s_applicationName  = "BGFX";
