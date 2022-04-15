@@ -41,7 +41,7 @@ jobs:
             name: "iOS",
             os: macos-latest,
             artifact: "BaseGame iOS",
-            cmake: "-GXcode -DCMAKE_SYSTEM_NAME=iOS -DCODE_SIGN_IDENTITY=\"iPhone Distribution\""
+            cmake: "-GXcode -DCMAKE_SYSTEM_NAME=iOS -DCODE_SIGN_IDENTITY=\"iPhone Distribution\" -DDEVELOPMENT_TEAM=\"${{ secrets.IOS_TEAM_ID }}\" -DPRODUCT_BUNDLE_IDENTIFIER=\"com.madissia.BaseGame\""
           }
 
     steps:
@@ -52,7 +52,10 @@ jobs:
 
     # Install pre-requisites
     - if: matrix.config.os == 'ubuntu-latest'
-      run: sudo apt-get install libgl1-mesa-dev libx11-dev # OpenGL & X11
+      run: sudo apt-get install libgl1-mesa-dev # OpenGL
+
+    - if: matrix.config.name == 'Android'
+      run: sudo apt-get install libx11-dev libxss-dev libxxf86vm-dev libxkbfile-dev libxv-dev
 
     - if: matrix.config.name == 'Android'
       uses: nttld/setup-ndk@v1
