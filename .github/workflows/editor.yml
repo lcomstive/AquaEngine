@@ -31,7 +31,7 @@ jobs:
           }
         - {
             name: "Mac OS",
-            os: macos-latest,
+            os: [ self-hosted, macos ] # macos-latest,
             artifact: "AquaEngine Mac"
           }
 

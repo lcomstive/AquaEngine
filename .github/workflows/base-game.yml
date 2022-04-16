@@ -31,12 +31,6 @@ jobs:
             os: macos-latest,
             artifact: "BaseGame Mac"
           }
-        - {
-            name: "Android",
-            os: ubuntu-latest,
-            artifact: "BaseGame Android",
-            cmake: "-DCMAKE_SYSTEM_NAME=Android -DCMAKE_SYSTEM_VERSION=21 -DCMAKE_ANDROID_ARCH_ABI=arm64-v8a -DCMAKE_ANDROID_NDK=$ANDROID_NDK_HOME -DCMAKE_ANDROID_STL_TYPE=c++_static"
-          }
 
     steps:
     - uses: actions/checkout@v3
@@ -47,13 +41,6 @@ jobs:
     # Install pre-requisites
     - if: matrix.config.os == 'ubuntu-latest'
       run: sudo apt-get install libgl1-mesa-dev # OpenGL
-
-    - if: matrix.config.name == 'Android'
-      uses: nttld/setup-ndk@v1
-      id: setup-ndk
-      with:
-        ndk-version: r21e
-        add-to-path: true
 
     # Configure CMake
     - name: Configure CMake [Debug]
